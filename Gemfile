@@ -7,7 +7,7 @@ gem 'rails'
 gem 'sqlite3'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -37,3 +37,9 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+gem 'sabisu_rails', github: "IcaliaLabs/sabisu-rails"
+gem 'furatto', '~> 1.3.7'
+gem 'compass-rails'
+gem 'font-awesome-rails'
+gem 'simple_form'
