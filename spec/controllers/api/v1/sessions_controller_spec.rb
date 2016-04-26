@@ -40,4 +40,17 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 	  	end
     end
   end
+
+  describe "DELETE #destroy" do
+
+    before(:each) do
+      @user = FactoryGirl.create :user
+      sign_in @user, store: false
+      delete :destroy, id: @user.auth_token
+    end
+
+    it "is should return http status 204" do
+    	expect(response).to have_http_status(204)
+  	end
+  end
 end
