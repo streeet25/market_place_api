@@ -14,9 +14,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user_response[:email]).to eql @user.email
     end
 
-    it "is should return http status succes" do
-    	expect(response).to have_http_status(:ok)
-  	end
+    it { expect(response.status).to eq 200 }
   end
 
   describe "POST #create" do
@@ -32,9 +30,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(user_response[:email]).to eql @user_attributes[:email]
       end
 
-      it "is should return http status 201" do
-    		expect(response).to have_http_status(201)
-  		end
+      it { expect(response.status).to eq 201 }
     end
 
     context "when is not created" do
@@ -55,13 +51,15 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(user_response[:errors][:email]).to include "can't be blank"
       end
 
-      it "is should return http status 422" do
-    		expect(response).to have_http_status(422)
-  		end
+      it { expect(response.status).to eq 422 }
     end
   end
 
   describe "PUT/PATCH #update" do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      request.headers['Authorization'] =  @user.auth_token
+    end
 
     context "when is successfully updated" do
       before(:each) do
@@ -75,9 +73,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(user_response[:email]).to eql "newmail@example.com"
       end
 
-      it "is should return http status 200" do
-    		expect(response).to have_http_status(200)
-  		end
+      it { expect(response.status).to eq 200 }
     end
 
     context "when is not created" do
@@ -97,19 +93,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(user_response[:errors][:email]).to include "is invalid"
       end
 
-      it "is should return http status 422" do
-    		expect(response).to have_http_status(422)
-  		end
+      it { expect(response.status).to eq 422 }
     end
     describe "DELETE #destroy" do
-		  before(:each) do
-		    @user = FactoryGirl.create :user
-		    delete :destroy, { id: @user.id }, format: :json
-		  end
+      before(:each) do
+        @user = FactoryGirl.create :user
+        api_authorization_header @user.auth_token #we added this line
+        delete :destroy, id: @user.auth_token
+      end
 
-		  it "is should return http status 204" do
-    		expect(response).to have_http_status(204)
-  		end
+		  it { expect(response.status).to eq 204 }
 		end
   end
 end

@@ -19,9 +19,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         expect(json_response[:auth_token]).to eql @user.auth_token
       end
 
-      it "is should return http status 200" do
-	    	expect(response).to have_http_status(200)
-	  	end
+      it { expect(response.status).to eq 200 }
     end
 
     context "when the credentials are incorrect" do
@@ -35,9 +33,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         expect(json_response[:errors]).to eql "Invalid email or password"
       end
 
-      it "is should return http status 422" do
-	    	expect(response).to have_http_status(422)
-	  	end
+      it { expect(response.status).to eq 422 }
     end
   end
 
@@ -45,12 +41,10 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
     before(:each) do
       @user = FactoryGirl.create :user
-      sign_in @user, store: false
+      sign_in @user
       delete :destroy, id: @user.auth_token
     end
 
-    it "is should return http status 204" do
-    	expect(response).to have_http_status(204)
-  	end
+    it { expect(response.status).to eq 204 }
   end
 end
