@@ -14,6 +14,8 @@ describe Product do
   it { should validate_numericality_of(:price).is_greater_than_or_equal_to(0) }
   it { should validate_presence_of :user_id }
   it { should belong_to :user }
+  it { should have_many(:placements) }
+  it { should have_many(:orders).through(:placements) }
 
   describe ".below_or_equal_to_price" do
     before(:each) do
