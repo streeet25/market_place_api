@@ -27,10 +27,13 @@ gem 'active_model_serializers'
 gem 'devise'
 
 group :development, :test do
-	gem 'shoulda-matchers'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem "factory_girl_rails"
   gem 'ffaker'
+end
+
+group :test do
+  gem "rspec-rails"
+  gem "shoulda-matchers"
 end
 
 group :doc do
