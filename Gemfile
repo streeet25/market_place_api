@@ -48,3 +48,5 @@ gem 'compass-rails'
 gem 'font-awesome-rails'
 gem 'simple_form'
 gem 'rspec-collection_matchers'
+
+gem 'kaminari'
