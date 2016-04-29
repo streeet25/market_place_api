@@ -50,3 +50,5 @@ gem 'simple_form'
 gem 'rspec-collection_matchers'
 
 gem 'kaminari'
+
+gem 'delayed_job_active_record'
